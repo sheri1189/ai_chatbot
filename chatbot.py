@@ -10,8 +10,8 @@ from langchain.callbacks import get_openai_callback
 from streamlit_chat import message
 from langchain.vectorstores import FAISS
 from PyPDF2 import PdfReader
-import mysql.connector
-from mysql.connector import Error
+# import mysql.connector
+# from mysql.connector import Error
 openapi_key = st.secrets['OPENAI_API_KEY']
 
 
@@ -137,33 +137,33 @@ def handel_userinput(user_question):
             else:
                 message(messages.content, key=str(i))
                 user_answer = messages.content
-                insert_into_db(user_question, user_answer)
+                # insert_into_db(user_question, user_answer)
 
 
-def insert_into_db(user_question, user_answer):
-    try:
-        connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='python_chatbot'
-        )
+# def insert_into_db(user_question, user_answer):
+#     try:
+#         connection = mysql.connector.connect(
+#             host='localhost',
+#             user='root',
+#             password='',
+#             database='python_chatbot'
+#         )
 
-        if connection.is_connected():
-            cursor = connection.cursor()
-            insert_query = """
-            INSERT INTO chatbot (user_question, user_answer)
-            VALUES (%s, %s)
-            """
-            cursor.execute(insert_query, (user_question, user_answer))
-            connection.commit()
-    except Error as e:
-        st.write(f"Error: {e}")
-    finally:
-        if connection.is_connected():
-            cursor.close()
-            connection.close()
+#         if connection.is_connected():
+#             cursor = connection.cursor()
+#             insert_query = """
+#             INSERT INTO chatbot (user_question, user_answer)
+#             VALUES (%s, %s)
+#             """
+#             cursor.execute(insert_query, (user_question, user_answer))
+#             connection.commit()
+#     except Error as e:
+#         st.write(f"Error: {e}")
+#     finally:
+#         if connection.is_connected():
+#             cursor.close()
+#             connection.close()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
